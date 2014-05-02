@@ -70,7 +70,7 @@ public class UberTest : MonoBehaviour
                 brush.width = 1;
                 
                 GUILayout.Label("Spray Farbe " + brush.hardness);
-                //brush.hardness = GUILayout.HorizontalSlider(brush.hardness, 0.1f, 50);
+                brush.hardness = 5;
                 toolbarfarbe = GUILayout.SelectionGrid(toolbarfarbe, sprayFarbe, 3);
                 break;
 

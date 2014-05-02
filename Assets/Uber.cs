@@ -50,10 +50,10 @@ public class Uber : MonoBehaviour
         GUILayout.BeginArea(new Rect(0, 0, 100, baseTex.height * zoom));
         tool2 = GUILayout.Toolbar(tool2, toolimgs, "Tool");
 
-        	//tool = System.Enum.Parse(Tool,tool2.ToString ());
+        	tool = (Tool)System.Enum.Parse(typeof(Tool),tool2.ToString ());
        // Debug.Log("tool2.ToString ()" + tool2.ToString()+"Tool"+ (typeof(Tool)));
         // FIXME: Defaults to brush tool, fix enum parse above.
-        tool = Tool.Brush;
+        //tool = Tool.Brush;
 
 
         GUILayout.Label("Drawing Options");
