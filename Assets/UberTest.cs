@@ -23,7 +23,7 @@ public class UberTest : MonoBehaviour
         Brush,
         Eraser
     }
-    private int tool2 = 1;
+    private int tool2 = 0;
     public Samples AntiAlias = Samples.Samples4;
     public Tool tool = Tool.Brush;
     public Texture[] toolimgs;
