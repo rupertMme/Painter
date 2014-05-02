@@ -19,7 +19,7 @@ public class UberTest : MonoBehaviour
     private Vector2 dragEnd;
     public enum Tool
     {
-
+        
         Brush,
         Eraser
     }
@@ -30,8 +30,8 @@ public class UberTest : MonoBehaviour
     public Texture2D colorCircle;
     public float lineWidth = 1;
     public float strokeWidth = 1;
-    public Color col = Color.white;
-    public Color col2 = Color.white;
+    public Color col = Color.black;
+    public Color col2 = Color.black;
     public GUISkin gskin;
    
     public BrushTool brush = new BrushTool();
@@ -43,7 +43,7 @@ public class UberTest : MonoBehaviour
     public int toolbargroesse = 0;
     public Texture[] sprayGroesse;
 
-    public int toolbarfarbe = 0;
+    public int toolbarfarbe =0;
     public Texture[] sprayFarbe;
 
     void OnGUI()
@@ -53,11 +53,9 @@ public class UberTest : MonoBehaviour
         GUILayout.BeginArea(new Rect(5, 5, 100 + baseTex.width * zoom, baseTex.height * zoom), "", "Box");
         GUILayout.BeginArea(new Rect(0, 0, 100, baseTex.height * zoom));
         tool2 = GUILayout.Toolbar(tool2, toolimgs, "Tool");
+        
+        	tool = (Tool)System.Enum.Parse(typeof(Tool),tool2.ToString());
 
-        	//tool = System.Enum.Parse (Tool,tool2.ToString());
-
-        // FIXME: Defaults to brush tool, fix enum parse above.
-        tool = Tool.Brush;
         
 
 
@@ -137,10 +135,12 @@ public class UberTest : MonoBehaviour
 
             if (tool == Tool.Brush)
             {
+                Debug.Log("brush");
                 Brush(dragEnd, preDrag);
             }
             if (tool == Tool.Eraser)
             {
+                Debug.Log("eraser");
                 Eraser(dragEnd, preDrag);
             }
 

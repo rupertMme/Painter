@@ -12,6 +12,7 @@ public class Uber : MonoBehaviour
     void Start()
     {
         baseTex = (Texture2D)Instantiate(sourceBaseTex);
+        
     }
 
 
@@ -49,8 +50,8 @@ public class Uber : MonoBehaviour
         GUILayout.BeginArea(new Rect(0, 0, 100, baseTex.height * zoom));
         tool2 = GUILayout.Toolbar(tool2, toolimgs, "Tool");
 
-        //	tool = System.Enum.Parse (Tool,tool2.ToString ());
-
+        	//tool = System.Enum.Parse(Tool,tool2.ToString ());
+       // Debug.Log("tool2.ToString ()" + tool2.ToString()+"Tool"+ (typeof(Tool)));
         // FIXME: Defaults to brush tool, fix enum parse above.
         tool = Tool.Brush;
 
@@ -150,10 +151,13 @@ public class Uber : MonoBehaviour
 
             if (tool == Tool.Brush)
             {
+
+                Debug.Log("brush");
                 Brush(dragEnd, preDrag);
             }
             if (tool == Tool.Eraser)
             {
+                Debug.Log("Eraser");
                 Eraser(dragEnd, preDrag);
             }
 
