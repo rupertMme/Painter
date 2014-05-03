@@ -38,7 +38,7 @@ public class UberTest : MonoBehaviour
     public EraserTool eraser = new EraserTool();
 
     public int zoom = 1;
-    BezierPoint[] BezierPoints;
+
 
     public int toolbargroesse = 0;
     public Texture[] sprayGroesse;
@@ -67,17 +67,19 @@ public class UberTest : MonoBehaviour
         
                 GUILayout.Label("Spray größe " + brush.width );
                 toolbargroesse = GUILayout.Toolbar(toolbargroesse, sprayGroesse, "SprayGroesse");
-                brush.width = 1;
-                
-                GUILayout.Label("Spray Farbe " + brush.hardness);
+                brush.width = brushGroesse(toolbargroesse);
                 brush.hardness = 5;
-                toolbarfarbe = GUILayout.SelectionGrid(toolbarfarbe, sprayFarbe, 3);
+                GUILayout.Label("Spray Farbe ");
+                
+               toolbarfarbe = GUILayout.SelectionGrid(toolbarfarbe, sprayFarbe, 3);
+               col = brushColor(toolbarfarbe);
                 break;
 
             case Tool.Eraser:
                 GUILayout.Label("Spray größe " + eraser.width );
                 toolbargroesse = GUILayout.Toolbar(toolbargroesse, sprayGroesse, "SprayGroesse");
-                eraser.width = 1;
+                eraser.width = brushGroesse(toolbargroesse);
+                eraser.hardness = 5;
                 break;
          }       
 
@@ -93,10 +95,7 @@ public class UberTest : MonoBehaviour
         Vector2 mouse = Input.mousePosition;
         mouse.y = Screen.height - mouse.y;
 
-        if (Input.GetKeyDown("t"))
-        {
-            test();
-        }
+      
         if (Input.GetKeyDown("mouse 0"))
         {
             Debug.Log("mouse0");
@@ -177,28 +176,7 @@ public class UberTest : MonoBehaviour
         baseTex.Apply();
     }
 
-    void test()
-    {
-        Debug.Log("test");
-        float startTime = Time.realtimeSinceStartup;
-        var w = 100;
-        var h = 100;
-        var p1 = new BezierPoint(new Vector2(10, 0), new Vector2(5, 20), new Vector2(20, 0));
-        var p2 = new BezierPoint(new Vector2(50, 10), new Vector2(40, 20), new Vector2(60, -10));
-        var c = new BezierCurve(p1.main, p1.control2, p2.control1, p2.main);
-        p1.curve2 = c;
-        p2.curve1 = c;
-        Vector2 elapsedTime = new Vector2((Time.realtimeSinceStartup - startTime) * 10, 0);
-        float startTime2 = Time.realtimeSinceStartup;
-        for (var i = 0; i < w * h; i++)
-        {
-            IsNearBezier(new Vector2(Random.value * 80, Random.value * 30), p1, p2, 10);
-        }
 
-        Vector2 elapsedTime2 = new Vector2((Time.realtimeSinceStartup - startTime2) * 10, 0);
-        Debug.Log("Drawing took " + elapsedTime.ToString() + "  " + elapsedTime2.ToString());
-
-    }
 
  
     public class EraserTool
@@ -215,71 +193,58 @@ public class UberTest : MonoBehaviour
     #endregion
 
     #region gui controls
-    static Color RGBSlider(Color c, string label)
+
+    static Color brushColor(int toolbarfarbe)
     {
-        GUI.color = c;
-        GUILayout.Label(label);
-        GUI.color = Color.red;
-        c.r = GUILayout.HorizontalSlider(c.r, 0, 1);
-        GUI.color = Color.green;
-        c.g = GUILayout.HorizontalSlider(c.g, 0, 1);
-        GUI.color = Color.blue;
-        c.b = GUILayout.HorizontalSlider(c.b, 0, 1);
-        GUI.color = Color.white;
-        return c;
-    }
-
-    static Color RGBCircle(Color c, string label, Texture2D colorCircle)
-    {
-        var r = GUILayoutUtility.GetAspectRect(1);
-        r.height = r.width -= 15;
-        var r2 = new Rect(r.x + r.width + 5, r.y, 10, r.height);
-        var hsb = new HSBColor(c);//It is much easier to work with HSB colours in this case
-
-
-        var cp = new Vector2(r.x + r.width / 2, r.y + r.height / 2);
-
-        if (Input.GetMouseButton(0))
+        Color brushfarbe = Color.red;
+        switch (toolbarfarbe)
         {
-            var InputVector = Vector2.zero;
-            InputVector.x = cp.x - Event.current.mousePosition.x;
-            InputVector.y = cp.y - Event.current.mousePosition.y;
+            case 0:
+                return Color.black;
+            case 1:
+                return Color.blue;
+            case 2:
+                return Color.cyan;
+            case 3:
+                return Color.gray;
+            case 4:
+                return Color.green;
+            case 5:
+                return Color.magenta;
+            case 6:
+                return Color.red;
+            case 7:
+                return Color.yellow;
 
-            var hyp = Mathf.Sqrt((InputVector.x * InputVector.x) + (InputVector.y * InputVector.y));
-            if (hyp <= r.width / 2 + 5)
-            {
-                hyp = Mathf.Clamp(hyp, 0, r.width / 2);
-                float a = Vector3.Angle(new Vector3(-1, 0, 0), InputVector);
-
-                if (InputVector.y < 0)
-                {
-                    a = 360 - a;
-                }
-
-                hsb.h = a / 360;
-                hsb.s = hyp / (r.width / 2);
-            }
         }
-
-        var hsb2 = new HSBColor(c);
-        hsb2.b = 1;
-        var c2 = hsb2.ToColor();
-        GUI.color = c2;
-        hsb.b = GUI.VerticalSlider(r2, hsb.b, 1.0f, 0.0f, "BWSlider", "verticalsliderthumb");
-
-        GUI.color = Color.white * hsb.b;
-        GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, 1);
-        GUI.Box(r, colorCircle, GUIStyle.none);
-
-        var pos = (new Vector2(Mathf.Cos(hsb.h * 360 * Mathf.Deg2Rad), -Mathf.Sin(hsb.h * 360 * Mathf.Deg2Rad)) * r.width * hsb.s / 2);
-
-        GUI.color = c;
-        GUI.Box(new Rect(pos.x - 5 + cp.x, pos.y - 5 + cp.y, 10, 10), "", "ColorcirclePicker");
-        GUI.color = Color.white;
-
-        c = hsb.ToColor();
-        return c;
+        return brushfarbe;
     }
+    static int brushGroesse(int toolbargroesse)
+    {
+        int brushgroeße=6;
+        switch (toolbargroesse)
+        {
+            case 0:
+                brushgroeße = 3;
+                return brushgroeße;
+                
+            case 1:
+                brushgroeße = 6;
+                return brushgroeße;
+                
+            case 2:
+                brushgroeße = 9;
+                return brushgroeße;
+            case 3:
+                brushgroeße = 12;
+                return brushgroeße;
+
+        }
+        return brushgroeße;
+    }
+
+
+  
     #endregion
 
     #region drawing
@@ -297,130 +262,11 @@ public class UberTest : MonoBehaviour
 
     static Samples NumSamples = Samples.Samples4;
 
-    static Texture2D DrawLine(Vector2 from, Vector2 to, float w, Color col, Texture2D tex)
-    {
-        return DrawLine(from, to, w, col, tex, false, Color.black, 0);
-    }
 
-    static Texture2D DrawLine(Vector2 from, Vector2 to, float w, Color col, Texture2D tex, bool stroke, Color strokeCol, float strokeWidth)
-    {
-        w = Mathf.Round(w);//It is important to round the numbers otherwise it will mess up with the texture width
-        strokeWidth = Mathf.Round(strokeWidth);
 
-        var extent = w + strokeWidth;
-        var stY = Mathf.Clamp(Mathf.Min(from.y, to.y) - extent, 0, tex.height);//This is the topmost Y value
-        var stX = Mathf.Clamp(Mathf.Min(from.x, to.x) - extent, 0, tex.width);
-        var endY = Mathf.Clamp(Mathf.Max(from.y, to.y) + extent, 0, tex.height);
-        var endX = Mathf.Clamp(Mathf.Max(from.x, to.x) + extent, 0, tex.width);//This is the rightmost Y value
+   
 
-        strokeWidth = strokeWidth / 2;
-        var strokeInner = (w - strokeWidth) * (w - strokeWidth);
-        var strokeOuter = (w + strokeWidth) * (w + strokeWidth);
-        var strokeOuter2 = (w + strokeWidth + 1) * (w + strokeWidth + 1);
-        var sqrW = w * w;//It is much faster to calculate with squared values
-
-        var lengthX = endX - stX;
-        var lengthY = endY - stY;
-        var start = new Vector2(stX, stY);
-        Color[] pixels = tex.GetPixels((int)stX, (int)stY, (int)lengthX, (int)lengthY, 0);//Get all pixels
-
-        for (int y = 0; y < lengthY; y++)
-        {
-            for (int x = 0; x < lengthX; x++)
-            {//Loop through the pixels
-                var p = new Vector2(x, y) + start;
-                var center = p + new Vector2(0.5f, 0.5f);
-                float dist = (center - NearestPointStrict(from, to, center)).sqrMagnitude;//The squared distance from the center of the pixels to the nearest point on the line
-                if (dist <= strokeOuter2)
-                {
-                    var samples = Sample(p);
-                    var c = Color.black;
-                    var pc = pixels[y * (int)lengthX + x];
-                    for (int i = 0; i < samples.Length; i++)
-                    {//Loop through the samples
-                        dist = (samples[i] - NearestPointStrict(from, to, samples[i])).sqrMagnitude;//The squared distance from the sample to the line
-                        if (stroke)
-                        {
-                            if (dist <= strokeOuter && dist >= strokeInner)
-                            {
-                                c += strokeCol;
-                            }
-                            else if (dist < sqrW)
-                            {
-                                c += col;
-                            }
-                            else
-                            {
-                                c += pc;
-                            }
-                        }
-                        else
-                        {
-                            if (dist < sqrW)
-                            {//Is the distance smaller than the width of the line
-                                c += col;
-                            }
-                            else
-                            {
-                                c += pc;//No it wasn't, set it to be the original colour
-                            }
-                        }
-                    }
-                    c /= samples.Length;//Get the avarage colour
-                    pixels[y * (int)lengthX + x] = c;
-                }
-            }
-        }
-        tex.SetPixels((int)stX, (int)stY, (int)lengthX, (int)lengthY, pixels, 0);
-        tex.Apply();
-        return tex;
-    }
-
-    static Texture2D Paint(Vector2 pos, float rad, Color col, float hardness, Texture2D tex)
-    {
-        var start = new Vector2(Mathf.Clamp(pos.x - rad, 0, tex.width), Mathf.Clamp(pos.y - rad, 0, tex.height));
-        var width = rad * 2;
-        var end = new Vector2(Mathf.Clamp(pos.x + rad, 0, tex.width), Mathf.Clamp(pos.y + rad, 0, tex.height));
-        var widthX = Mathf.Round(end.x - start.x);
-        var widthY = Mathf.Round(end.y - start.y);
-        var sqrRad = rad * rad;
-        var sqrRad2 = (rad + 1) * (rad + 1);
-        Color[] pixels = tex.GetPixels((int)start.x, (int)start.y, (int)widthX, (int)widthY, 0);
-
-        for (var y = 0; y < widthY; y++)
-        {
-            for (var x = 0; x < widthX; x++)
-            {
-                var p = new Vector2(x, y) + start;
-                var center = p + new Vector2(0.5f, 0.5f);
-                float dist = (center - pos).sqrMagnitude;
-                if (dist > sqrRad2)
-                {
-                    continue;
-                }
-                var samples = Sample(p);
-                var c = Color.black;
-                for (var i = 0; i < samples.Length; i++)
-                {
-                    dist = GaussFalloff(Vector2.Distance(samples[i], pos), rad) * hardness;
-                    if (dist > 0)
-                    {
-                        c += Color.Lerp(pixels[y * (int)widthX + x], col, dist);
-                    }
-                    else
-                    {
-                        c += pixels[y * (int)widthX + x];
-                    }
-                }
-                c /= samples.Length;
-
-                pixels[y * (int)widthX + x] = c;
-            }
-        }
-
-        tex.SetPixels((int)start.x, (int)start.y, (int)widthX, (int)widthY, pixels, 0);
-        return tex;
-    }
+  
 
     static Texture2D PaintLine(Vector2 from, Vector2 to, float rad, Color col, float hardness, Texture2D tex)
     {
@@ -471,165 +317,7 @@ public class UberTest : MonoBehaviour
         return tex;
     }
 
-    internal class BezierPoint
-    {
-        internal Vector2 main;
-        internal Vector2 control1;//Think of as left
-        internal Vector2 control2;//Right
-        //Rect rect;
-        internal BezierCurve curve1;//Left
-        internal BezierCurve curve2;//Right
-
-        internal BezierPoint(Vector2 m, Vector2 l, Vector2 r)
-        {
-            main = m;
-            control1 = l;
-            control2 = r;
-        }
-    }
-
-    internal class BezierCurve
-    {
-        internal Vector2[] points;
-        internal float aproxLength;
-        internal Rect rect;
-        internal Vector2 Get(float t)
-        {
-            int t2 = (int)Mathf.Round(t * (points.Length - 1));
-            return points[t2];
-        }
-
-        void Init(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
-        {
-
-            Vector2 topleft = new Vector2(Mathf.Infinity, Mathf.Infinity);
-            Vector2 bottomright = new Vector2(Mathf.NegativeInfinity, Mathf.NegativeInfinity);
-
-            topleft.x = Mathf.Min(topleft.x, p0.x);
-            topleft.x = Mathf.Min(topleft.x, p1.x);
-            topleft.x = Mathf.Min(topleft.x, p2.x);
-            topleft.x = Mathf.Min(topleft.x, p3.x);
-
-            topleft.y = Mathf.Min(topleft.y, p0.y);
-            topleft.y = Mathf.Min(topleft.y, p1.y);
-            topleft.y = Mathf.Min(topleft.y, p2.y);
-            topleft.y = Mathf.Min(topleft.y, p3.y);
-
-            bottomright.x = Mathf.Max(bottomright.x, p0.x);
-            bottomright.x = Mathf.Max(bottomright.x, p1.x);
-            bottomright.x = Mathf.Max(bottomright.x, p2.x);
-            bottomright.x = Mathf.Max(bottomright.x, p3.x);
-
-            bottomright.y = Mathf.Max(bottomright.y, p0.y);
-            bottomright.y = Mathf.Max(bottomright.y, p1.y);
-            bottomright.y = Mathf.Max(bottomright.y, p2.y);
-            bottomright.y = Mathf.Max(bottomright.y, p3.y);
-
-            rect = new Rect(topleft.x, topleft.y, bottomright.x - topleft.x, bottomright.y - topleft.y);
-
-
-            var ps = new List<Vector2>();
-
-            var point1 = CubicBezier(0, p0, p1, p2, p3);
-            var point2 = CubicBezier(0.05f, p0, p1, p2, p3);
-            var point3 = CubicBezier(0.1f, p0, p1, p2, p3);
-            var point4 = CubicBezier(0.15f, p0, p1, p2, p3);
-
-            var point5 = CubicBezier(0.5f, p0, p1, p2, p3);
-            var point6 = CubicBezier(0.55f, p0, p1, p2, p3);
-            var point7 = CubicBezier(0.6f, p0, p1, p2, p3);
-
-            aproxLength = Vector2.Distance(point1, point2) + Vector2.Distance(point2, point3) + Vector2.Distance(point3, point4) + Vector2.Distance(point5, point6) + Vector2.Distance(point6, point7);
-
-            Debug.Log(Vector2.Distance(point1, point2) + "     " + Vector2.Distance(point3, point4) + "   " + Vector2.Distance(point6, point7));
-            aproxLength *= 4;
-
-            float a2 = 0.5f / aproxLength;//Double the amount of points since the approximation is quite bad
-            for (float i = 0; i < 1; i += a2)
-            {
-                ps.Add(CubicBezier(i, p0, p1, p2, p3));
-            }
-
-            points = ps.ToArray();
-        }
-
-        internal BezierCurve(Vector2 main, Vector2 control1, Vector2 control2, Vector2 end)
-        {
-            Init(main, control1, control2, end);
-        }
-    }
-
-    static void DrawBezier(BezierPoint[] points, float rad, Color col, Texture2D tex)
-    {
-        rad = Mathf.Round(rad);//It is important to round the numbers otherwise it will mess up with the texture width
-
-        if (points.Length <= 1)
-            return;
-
-        Vector2 topleft = new Vector2(Mathf.Infinity, Mathf.Infinity);
-        Vector2 bottomright = new Vector2(0, 0);
-
-        for (int i = 0; i < points.Length - 1; i++)
-        {
-            Vector2 main = points[i].main;
-            Vector2 control2 = points[i].control2;
-            Vector2 control1 = points[i + 1].control1;
-            Vector2 main2 = points[i + 1].main;
-            BezierCurve curve = new BezierCurve(main, control2, control1, main2);
-            points[i].curve2 = curve;
-            points[i + 1].curve1 = curve;
-
-            topleft.x = Mathf.Min(topleft.x, curve.rect.x);
-
-            topleft.y = Mathf.Min(topleft.y, curve.rect.y);
-
-            bottomright.x = Mathf.Max(bottomright.x, curve.rect.x + curve.rect.width);
-
-            bottomright.y = Mathf.Max(bottomright.y, curve.rect.y + curve.rect.height);
-        }
-
-        topleft -= new Vector2(rad, rad);
-        bottomright += new Vector2(rad, rad);
-
-        var start = new Vector2(Mathf.Clamp(topleft.x, 0, tex.width), Mathf.Clamp(topleft.y, 0, tex.height));
-        var width = new Vector2(Mathf.Clamp(bottomright.x - topleft.x, 0, tex.width - start.x), Mathf.Clamp(bottomright.y - topleft.y, 0, tex.height - start.y));
-
-        Color[] pixels = tex.GetPixels((int)start.x, (int)start.y, (int)width.x, (int)width.y, 0);
-
-        for (var y = 0; y < width.y; y++)
-        {
-            for (var x = 0; x < width.x; x++)
-            {
-                var p = new Vector2(x + start.x, y + start.y);
-                if (!IsNearBeziers(p, points, rad + 2))
-                {
-                    continue;
-                }
-
-                var samples = Sample(p);
-                var c = Color.black;
-                var pc = pixels[y * (int)width.x + x];//Previous pixel color
-                for (var i = 0; i < samples.Length; i++)
-                {
-                    if (IsNearBeziers(samples[i], points, rad))
-                    {
-                        c += col;
-                    }
-                    else
-                    {
-                        c += pc;
-                    }
-                }
-
-                c /= samples.Length;
-
-                pixels[y * (int)width.x + x] = c;
-            }
-        }
-
-        tex.SetPixels((int)start.x, (int)start.y, (int)width.x, (int)width.y, pixels, 0);
-        tex.Apply();
-    }
+  
 
     static void AddP(List<Vector2> tmpList, Vector2 p, float ix, float iy)
     {
@@ -924,149 +612,7 @@ public class UberTest : MonoBehaviour
         return Vector2.zero;
     }
 
-    static Vector2 NearestPointOnBezier(Vector2 p, BezierCurve c, float accuracy, bool doubleAc)
-    {
-        float minDist = Mathf.Infinity;
-        float minT = 0;
-        Vector2 minP = Vector2.zero;
-        for (float i = 0; i < 1; i += accuracy)
-        {
-            var point = c.Get(i);
-            float d = (p - point).sqrMagnitude;
-            if (d < minDist)
-            {
-                minDist = d;
-                minT = i;
-                minP = point;
-            }
-        }
-
-        if (!doubleAc)
-        {
-            return minP;
-        }
-
-        float st = Mathf.Clamp01(minT - accuracy);
-        float en = Mathf.Clamp01(minT + accuracy);
-
-
-        for (var i = st; i < en; i += accuracy / 10)
-        {
-            var point = c.Get(i);
-            float d = (p - point).sqrMagnitude;
-            if (d < minDist)
-            {
-                minDist = d;
-                minT = i;
-                minP = point;
-            }
-        }
-
-        return minP;
-    }
-
-    static bool IsNearBezierTest(Vector2 p, BezierCurve c, float accuracy, float maxDist)
-    {
-        Vector2 prepoint = c.Get(0);
-        for (float i = accuracy; i < 1; i += accuracy)
-        {
-            var point = c.Get(i);
-            float d = (p - point).sqrMagnitude;
-            float d2 = (prepoint - point + new Vector2(maxDist, maxDist)).sqrMagnitude;
-            if (d <= d2 * 2)
-                return true;
-        }
-
-        return false;
-    }
-
-    static Vector2 NearestPointOnBezier(Vector2 p, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
-    {
-        float minDist = Mathf.Infinity;
-        float minT = 0;
-        Vector2 minP = Vector2.zero;
-        for (float i = 0; i < 1; i += 0.01f)
-        {
-            var point = CubicBezier(i, p0, p1, p2, p3);
-            float d = (p - point).sqrMagnitude;
-            if (d < minDist)
-            {
-                minDist = d;
-                minT = i;
-                minP = point;
-            }
-        }
-
-        float st = Mathf.Clamp01(minT - 0.01f);
-        float en = Mathf.Clamp01(minT + 0.01f);
-
-        for (var i = st; i < en; i += 0.001f)
-        {
-            var point = CubicBezier(i, p0, p1, p2, p3);
-            var d = (p - point).sqrMagnitude;
-            if (d < minDist)
-            {
-                minDist = d;
-                minT = i;
-                minP = point;
-            }
-        }
-
-        return minP;
-
-    }
-
-    static bool IsNearBezier(Vector2 p, BezierPoint point1, BezierPoint point2, float rad)
-    {
-        if (point1.curve2 != point2.curve1)
-        {
-            Debug.LogError("Curves Not The Same");
-            return false;
-        }
-
-        BezierCurve curve = point1.curve2;
-
-        var r = curve.rect;
-        r.x -= rad;
-        r.y -= rad;
-        r.width += rad * 2;
-        r.height += rad * 2;
-
-        if (!r.Contains(p))
-        {
-            return false;
-        }
-
-        var nearest = NearestPointOnBezier(p, curve, 0.1f, false);
-
-        var sec = point1.curve2.aproxLength / 10;
-
-        if ((nearest - p).sqrMagnitude >= (sec * 3) * (sec * 3))
-        {
-            return false;
-        }
-
-        nearest = NearestPointOnBezier(p, curve, 0.01f, true);
-
-        if ((nearest - p).sqrMagnitude <= rad * rad)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    static bool IsNearBeziers(Vector2 p, BezierPoint[] points, float rad)
-    {
-        for (var i = 0; i < points.Length - 1; i++)
-        {
-            if (IsNearBezier(p, points[i], points[i + 1], rad))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+   
 
     //====== End Bezier ========//
 
