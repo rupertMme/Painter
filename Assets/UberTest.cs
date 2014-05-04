@@ -7,11 +7,14 @@ public class UberTest : MonoBehaviour
 
     #region painter
     public Texture2D sourceBaseTex;
+    public Texture2D overlaySource;
     private Texture2D baseTex;
+    private Texture2D overlayTex;
 
     void Start()
     {
         baseTex = (Texture2D)Instantiate(sourceBaseTex);
+        overlayTex = (Texture2D)Instantiate(overlaySource);
     }
 
 
@@ -27,7 +30,6 @@ public class UberTest : MonoBehaviour
     public Samples AntiAlias = Samples.Samples4;
     public Tool tool = Tool.Brush;
     public Texture[] toolimgs;
-    public Texture2D colorCircle;
     public float lineWidth = 1;
     public float strokeWidth = 1;
     public Color col = Color.black;
@@ -86,6 +88,7 @@ public class UberTest : MonoBehaviour
 
         GUILayout.EndArea();
         GUI.DrawTexture(new Rect(100, 0, baseTex.width * zoom, baseTex.height * zoom), baseTex);
+        GUI.DrawTexture(new Rect(100, 0, baseTex.width * zoom, baseTex.height * zoom), overlayTex);
         GUILayout.EndArea();
     }
     private Vector2 preDrag;
