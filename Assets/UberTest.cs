@@ -95,11 +95,14 @@ public class UberTest : MonoBehaviour
     void Update()
     {
         Rect imgRect = new Rect(5 + 100, 5, baseTex.width * zoom, baseTex.height * zoom);
-        Vector2 mouse = Input.mousePosition;
-        mouse.y = Screen.height - mouse.y;
 
+        Vector2 mouse = (gazeModel.posGazeLeft + gazeModel.posGazeRight) * 0.5f;
+      //  Vector2 mouse = Input.mousePosition;
+        mouse.y = Screen.height - mouse.y;
+        Debug.Log("Mouse:" + mouse);
+        
       
-        if (Input.GetKeyDown("mouse 0"))
+        if (Input.GetKey("mouse 0"))
         {
             Debug.Log("mouse0");
             if (imgRect.Contains(mouse))
