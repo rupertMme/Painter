@@ -282,7 +282,7 @@ namespace iViewX
             RaycastHit2D hit = Physics2D.Raycast(gazePos, Vector2.zero, 0);
             if (hit)
             {
-                Debug.Log("HIT:" + hit.collider.name);
+                //Debug.Log("HIT:" + hit.collider.name);
                 //Only React when a Object has a Monobehabvior with GazeComponent
                 MonoBehaviourWithGazeComponent hitMono = hit.collider.gameObject.GetComponent<MonoBehaviourWithGazeComponent>();
                 if (hitMono != null)
