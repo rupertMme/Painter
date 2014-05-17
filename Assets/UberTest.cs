@@ -52,8 +52,9 @@ public class UberTest : MonoBehaviour
     {
         GUI.skin = gskin;
 
-        GUILayout.BeginArea(new Rect(5, 5, 100 + baseTex.width * zoom, baseTex.height * zoom), "", "Box");
-        GUILayout.BeginArea(new Rect(0, 0, 100, baseTex.height * zoom));
+       // GUILayout.BeginArea(new Rect(5, 5, 100 + baseTex.width * zoom, baseTex.height * zoom), "", "Box");
+        //GUILayout.BeginArea(new Rect(0, 0, 100, baseTex.height * zoom));
+        GUILayout.BeginArea(new Rect(Screen.width / 2 - 50, Screen.height - 50, 200, 200));
         tool2 = GUILayout.Toolbar(tool2, toolimgs, "Tool");
         
         	tool = (Tool)System.Enum.Parse(typeof(Tool),tool2.ToString());

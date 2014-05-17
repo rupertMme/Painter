@@ -30,7 +30,8 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
     public override void OnGazeStay(RaycastHit2D hit)
     {
 
-        Debug.Log("dwelltime" + dwellTime);
+       
+        //Debug.Log("dwelltime" + dwellTime);
            dwellTime+=1;
            if (dwellTime == 100)
            {
