@@ -28,7 +28,7 @@ public class GUIColorPicker : MonoBehaviour {
         
         GUILayout.BeginArea(new Rect(5,Screen.height-Screen.height/5, Screen.width ,Screen.height/5), "", "Box");
         GUILayout.Label("Spray Farbe ");
-        Rect box = new Rect(25,25,Screen.width/5,Screen.height/5);
+        //Rect box = new Rect(25,25,Screen.width/5,Screen.height/5);
         
         //Eventuell Buttons in das Rect setzen.
 

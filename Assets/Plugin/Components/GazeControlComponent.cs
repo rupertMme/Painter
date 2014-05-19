@@ -301,6 +301,14 @@ namespace iViewX
                     hitMono.OnObjectHit(hit);
 
                 }
+                else
+                {
+                    if (oldSelection != null)
+                    {
+                        oldSelection.OnObjectExit();
+                        oldSelection = null;
+                    }
+                }
             }
 
 

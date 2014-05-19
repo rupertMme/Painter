@@ -31,6 +31,7 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
     public override void OnGazeStay(RaycastHit2D hit)
     {
         GameObject colorPicker = GameObject.FindGameObjectWithTag("MainCamera");
+        Debug.Log("mainCamera" + colorPicker +" gameObject.name: "+ gameObject.renderer.name);
         if (gameObject.tag == "ColorPicker")
         {
             Debug.Log("colorNachTAG"+ gameObject.renderer.name);
@@ -38,14 +39,14 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
             colorPicker.GetComponent<GUIColorPicker>().SetColor(newColor);
             
         }
-        else if(gameObject.tag== "Malobject")
+        else if(gameObject.tag == "Malobject")
         {
 
         
             
-        //Debug.Log("dwelltime" + dwellTime);
+        Debug.Log("dwelltime" + dwellTime);
            dwellTime+=1;
-           if (dwellTime == 300)
+           if (dwellTime == 100)
            {
                Debug.Log("dwelltime 10000");
               
