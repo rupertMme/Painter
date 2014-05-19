@@ -57,12 +57,16 @@
      <Compile Include="Assets\Plugin\Components\GazeController.cs" />
      <Compile Include="Assets\Plugin\Components\MonoBehaviourWithGazeComponent.cs" />
      <Compile Include="Assets\Scripts\ExampleGazeMenu.cs" />
+     <Compile Include="Assets\Scripts\GameStateManager.cs" />
+     <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\RotateObjectWhileFocused.cs" />
      <Compile Include="Assets\Scripts\ShowGazeData.cs" />
      <Compile Include="Assets\Scripts\View3D_WithGaze.cs" />
      <Compile Include="Assets\Scripts\gazeButton_RotateObject.cs" />
      <Compile Include="Assets\Uber.cs" />
      <Compile Include="Assets\UberTest.cs" />
+     <Compile Include="Assets\colorPicker2.cs" />
+     <Compile Include="Assets\striptShowGazeData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

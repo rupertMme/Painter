@@ -16,9 +16,10 @@ using iViewX;
 public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
 
     // Setup the RotationSpeed of the Rotation
-    public float rotationsPerMinute = 100.0f;
+    //public float rotationsPerMinute = 100.0f;
     private Color textureColor;
     private int dwellTime=0;
+    
 
     
     public override void OnGazeEnter(RaycastHit2D hit)
@@ -29,14 +30,25 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
     //Rotate the Element if the Gaze stays on the Collider
     public override void OnGazeStay(RaycastHit2D hit)
     {
+        GameObject colorPicker = GameObject.FindGameObjectWithTag("MainCamera");
+        if (gameObject.tag == "ColorPicker")
+        {
+            Debug.Log("colorNachTAG"+ gameObject.renderer.name);
+            string newColor = gameObject.renderer.name;
+            colorPicker.GetComponent<GUIColorPicker>().SetColor(newColor);
+            
+        }
+        else if(gameObject.tag== "Malobject")
+        {
 
-       
+        
+            
         //Debug.Log("dwelltime" + dwellTime);
            dwellTime+=1;
            if (dwellTime == 100)
            {
                Debug.Log("dwelltime 10000");
-               GameObject colorPicker = GameObject.FindGameObjectWithTag("MainCamera");
+              
                textureColor = colorPicker.GetComponent<GUIColorPicker>().GetColor();
 
 
@@ -44,8 +56,8 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
                //Debug.Log("Color im Focus");
                gameObject.renderer.material.color = textureColor;
            }
-        
-        
+
+        }
         
         if(Input.GetKeyDown(KeyCode.Space))
         {

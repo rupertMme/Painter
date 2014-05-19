@@ -5,7 +5,7 @@ public class GUIColorPicker : MonoBehaviour {
     public GUISkin gskin;
     public int toolbarfarbe = 0;
     public Texture[] sprayFarbe;
-    private Color brushfarbe;
+    private Color brushfarbe=Color.black;
     public Texture2D black;
     public Texture2D blue;
     public Texture2D cyan;
@@ -36,13 +36,13 @@ public class GUIColorPicker : MonoBehaviour {
         //toolbarfarbe = GUILayout.SelectionGrid(toolbarfarbe, sprayFarbe, 8);
         //toolbarfarbe = GUI.Toolbar(new Rect(25, 25, Screen.width,Screen.height/5), toolbarfarbe, sprayFarbe);
         
-        brushfarbe = brushColor(toolbarfarbe);
-        Vector2 mouse = (gazeModel.posGazeLeft + gazeModel.posGazeRight) * 0.5f;
+        //brushfarbe = brushColor(toolbarfarbe);
+        //Vector2 mouse = (gazeModel.posGazeLeft + gazeModel.posGazeRight) * 0.5f;
         //if (Event.current.type==EventType.Repaint && GUILayoutUtility.GetLastRect().Contains(Event.current.mousePosition)){
-        if (box.Contains(mouse))
-        {
-            Debug.Log("hover über box");
-        }
+        //if (box.Contains(mouse))
+       // {
+      //      Debug.Log("hover über box");
+       // }
 
         GUILayout.EndArea();
        
@@ -81,9 +81,40 @@ public class GUIColorPicker : MonoBehaviour {
 
     public Color GetColor()
     {
-        Debug.Log("colorPicker" + brushfarbe);
         return brushfarbe;
     }
+    public Color SetColor(string newbrushfarbe)
+    {
+        switch (newbrushfarbe)
+        {
+            case "Black1":
+                brushfarbe = Color.black;
+                return brushfarbe;
+            case "Blue":
+                 brushfarbe = Color.blue;
+                return brushfarbe;
+           case "Cyan":
+                brushfarbe = Color.cyan;
+                return brushfarbe;
+           case "grey":
+                brushfarbe = Color.gray;
+                return brushfarbe;
+           case "green":
+                brushfarbe = Color.green;
+                return brushfarbe;
+           case "magenta":
+                brushfarbe = Color.magenta;
+                return brushfarbe;
+           case "red":
+                brushfarbe = Color.red;
+                return brushfarbe;
+           case "yellow":
+                brushfarbe = Color.yellow;
+                return brushfarbe;
 
+        }
+
+        return brushfarbe;
+    }
 
 }
