@@ -45,7 +45,7 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
             
         //Debug.Log("dwelltime" + dwellTime);
            dwellTime+=1;
-           if (dwellTime == 100)
+           if (dwellTime == 300)
            {
                Debug.Log("dwelltime 10000");
               
