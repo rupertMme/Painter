@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour {
         if (GUI.Button(new Rect(Screen.width * 0.45f, Screen.height * .26f, Screen.width * 0.15f, Screen.height * 0.1f), "Start Calibration"))
             GazeControlComponent.Instance.StartCalibration();
 
-        GUI.DrawTexture(new Rect(0, 0, Screen.width * 0.85f, Screen.height), eyePaintlogo);
+        GUI.DrawTexture(new Rect(0, 0, Screen.width * 0.25f, Screen.height*0.25f), eyePaintlogo);
 
         if (GUI.Button(new Rect(Screen.width * .45f, Screen.height * .40f, Screen.width * 0.15f, Screen.height * .1f), "Zwerg"))
         {

@@ -2,8 +2,16 @@
 using System.Collections;
 
 public class striptShowGazeData : MonoBehaviour {
-    public Texture2D gazeCursor;
     public bool isGazeCursorActive = true;
+    public Texture2D gazeCursor;
+    public Texture2D gazeCursorBlack;
+    public Texture2D gazeCursorBlue;
+    public  Texture2D gazeCursorCyan;
+    public  Texture2D gazeCursorgrey;
+    public  Texture2D gazeCursorgreen;
+    public  Texture2D gazeCursormagenta;
+    public  Texture2D gazeCursorred;
+    public  Texture2D gazeCursoryellow;
 
     void OnGUI()
     {
@@ -25,7 +33,43 @@ public class striptShowGazeData : MonoBehaviour {
 	void Start () {
 	
 	}
-	
+    public Texture2D setCursor(string color)
+    {
+        switch (color)
+        {
+            case "Black1":
+                gazeCursor = gazeCursorBlack;
+                return gazeCursor;
+            case "Blue": 
+                 gazeCursor = gazeCursorBlue;
+                return gazeCursor;
+            case "Cyan":
+                gazeCursor = gazeCursorCyan;
+                return gazeCursor;
+            case "grey":
+                gazeCursor = gazeCursorgrey;
+                return gazeCursor;
+            case "green":
+                gazeCursor = gazeCursorgreen;
+                return gazeCursor;
+            case "magenta":
+                gazeCursor = gazeCursormagenta;
+                return gazeCursor;
+            case "red":
+                gazeCursor = gazeCursorred;
+                return gazeCursor;
+            case "yellow":
+                gazeCursor = gazeCursoryellow;
+                return gazeCursor;
+
+        }
+        
+        return gazeCursor;
+    }
+    public Texture2D getCursor()
+    {
+        return gazeCursor;
+    }
 	// Update is called once per frame
 	void Update () {
 	
