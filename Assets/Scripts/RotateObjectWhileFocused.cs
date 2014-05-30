@@ -19,7 +19,7 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
     //public float rotationsPerMinute = 100.0f;
     private Color textureColor;
     private float dwellTime=0;
-    private float dwellTimeMax = 0.75f;
+    private float dwellTimeMax = 1.5f;
     
 
     

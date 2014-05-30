@@ -26,7 +26,7 @@ public class striptShowGazeData : MonoBehaviour {
         if (isGazeCursorActive)
         {
             Vector3 posGaze = (gazeModel.posGazeLeft + gazeModel.posGazeRight) * 0.5f;
-            GUI.DrawTexture(new Rect(posGaze.x, posGaze.y, gazeCursor.width, gazeCursor.height), gazeCursor);
+            GUI.DrawTexture(new Rect(posGaze.x-5, posGaze.y-25, gazeCursor.width, gazeCursor.height), gazeCursor);
         }
     }
 	// Use this for initialization
