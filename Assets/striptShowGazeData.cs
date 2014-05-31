@@ -12,6 +12,8 @@ public class striptShowGazeData : MonoBehaviour {
     public  Texture2D gazeCursormagenta;
     public  Texture2D gazeCursorred;
     public  Texture2D gazeCursoryellow;
+    public Texture2D dwellVisual;
+    public GameObject dwellCursor;
 
     void OnGUI()
     {
@@ -27,6 +29,9 @@ public class striptShowGazeData : MonoBehaviour {
         {
             Vector3 posGaze = (gazeModel.posGazeLeft + gazeModel.posGazeRight) * 0.5f;
             GUI.DrawTexture(new Rect(posGaze.x-5, posGaze.y-25, gazeCursor.width, gazeCursor.height), gazeCursor);
+            //GUI.DrawTexture(new Rect(posGaze.x - 5, posGaze.y - 25, dwellVisual.width/7, dwellVisual.height/7), dwellVisual);
+            dwellCursor.transform.position = new Vector3(posGaze.x - 1100, posGaze.y - 25, 0);
+            //renderer.material.SetFloat("_Cutoff", 0);
         }
     }
 	// Use this for initialization
