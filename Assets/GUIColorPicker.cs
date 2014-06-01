@@ -92,6 +92,7 @@ public class GUIColorPicker : MonoBehaviour {
             case "Black1":
                 brushfarbe = Color.black;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("Black1");
+                gameObject.GetComponent<DwellTimeBar>.setBarColor("Black1");
                 return brushfarbe;
             case "Blue":
                  brushfarbe = Color.blue;

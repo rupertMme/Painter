@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\DwellTimeBar.cs" />
      <Compile Include="Assets\GUIColorPicker.cs" />
      <Compile Include="Assets\HSBColor.cs" />
      <Compile Include="Assets\Plugin\Backend\EyeTrackingController.cs" />
