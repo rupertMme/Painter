@@ -25,12 +25,13 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
     
     public override void OnGazeEnter(RaycastHit2D hit)
     {
-        Debug.Log("ongazeEnter");
+        Debug.Log("OnGazeEnter" + name);
     }
 
     //Rotate the Element if the Gaze stays on the Collider
     public override void OnGazeStay(RaycastHit2D hit)
     {
+        Debug.Log("ON GAZE Stay:" + name);
         GameObject colorPicker = GameObject.FindGameObjectWithTag("MainCamera");
         Debug.Log("mainCamera" + colorPicker +" gameObject.name: "+ gameObject.renderer.name);
         if (gameObject.tag == "ColorPicker")
@@ -40,27 +41,26 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
             colorPicker.GetComponent<GUIColorPicker>().SetColor(newColor);
             
         }
-        else if(gameObject.tag == "Malobject")
+        else if (gameObject.tag == "Malobject")
         {
 
-        
-            
-        Debug.Log("dwelltime" + dwellTime);
-           dwellTime=dwellTime+ Time.deltaTime;
-           if (dwellTime >= dwellTimeMax)
-           {
-               Debug.Log("dwelltime 10000");
-              
-               textureColor = colorPicker.GetComponent<GUIColorPicker>().GetColor();
+
+            Debug.Log("dwelltime" + dwellTime);
+            dwellTime = dwellTime + Time.deltaTime;
+            if (dwellTime >= dwellTimeMax)
+            {
+                Debug.Log("dwelltime 10000");
+
+                textureColor = colorPicker.GetComponent<GUIColorPicker>().GetColor();
 
 
-               //transform.Rotate(0, 0, rotationsPerMinute * Time.deltaTime);
-               //Debug.Log("Color im Focus");
-               gameObject.renderer.material.color = textureColor;
-           }
+                //transform.Rotate(0, 0, rotationsPerMinute * Time.deltaTime);
+                //Debug.Log("Color im Focus");
+                gameObject.renderer.material.color = textureColor;
+            }
 
         }
-        
+
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Destroy(gameObject);

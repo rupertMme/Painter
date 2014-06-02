@@ -309,12 +309,11 @@ namespace iViewX
                         oldSelection = null;
                     }
                 }
+
+
+                Debug.Log("GameObjectName: " + oldSelection.gameObject.name);
             }
-
-
-            
-
-            /*else
+            else
             {
                 // Call from the oldSelection the GazeExit() Function
                 if (oldSelection != null)
@@ -322,7 +321,7 @@ namespace iViewX
                     oldSelection.OnObjectExit();
                     oldSelection = null;
                 }
-            }*/
+            }
         }
 
         /// <summary>
