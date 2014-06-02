@@ -92,35 +92,42 @@ public class GUIColorPicker : MonoBehaviour {
             case "Black1":
                 brushfarbe = Color.black;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("Black1");
-                gameObject.GetComponent<DwellTimeBar>.setBarColor("Black1");
+                //gameObject.GetComponent<DwellTimeBar>().setBarColor("Black1");
                 return brushfarbe;
             case "Blue":
                  brushfarbe = Color.blue;
                  gameObject.GetComponent<striptShowGazeData>().setCursor("Blue");
+                 //gameObject.GetComponent<DwellTimeBar>().setBarColor("Blue");
                 return brushfarbe;
            case "Cyan":
                 brushfarbe = Color.cyan;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("Cyan");
+                //gameObject.GetComponent<DwellTimeBar>().setBarColor("Cyan");
                 return brushfarbe;
            case "grey":
                 brushfarbe = Color.gray;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("grey");
+                //gameObject.GetComponent<DwellTimeBar>().setBarColor("grey");
                 return brushfarbe;
            case "green":
                 brushfarbe = Color.green;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("green");
+               // gameObject.GetComponent<DwellTimeBar>().setBarColor("green");
                 return brushfarbe;
            case "magenta":
                 brushfarbe = Color.magenta;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("magenta");
+                //gameObject.GetComponent<DwellTimeBar>().setBarColor("magenta");
                 return brushfarbe;
            case "red":
                 brushfarbe = Color.red;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("red");
+               // gameObject.GetComponent<DwellTimeBar>().setBarColor("red");
                 return brushfarbe;
            case "yellow":
                 brushfarbe = Color.yellow;
                 gameObject.GetComponent<striptShowGazeData>().setCursor("yellow");
+               // gameObject.GetComponent<DwellTimeBar>().setBarColor("yellow");
                 return brushfarbe;
 
         }

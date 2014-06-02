@@ -11,11 +11,16 @@ public class DwellTimeBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        GameObject Camera= GameObject.FindGameObjectWithTag("MainCamera");
+        barColor = Camera.GetComponent<GUIColorPicker>().GetColor();
         renderer.material.SetFloat("_Cutoff", Mathf.InverseLerp(0, Screen.width, Input.mousePosition.x));
-        renderer.material.SetColor("_SpecColor", barColor);
+        renderer.material.SetColor("_Color", barColor);
+       // renderer.material.color = barColor;
+        //renderer.material.SetColor("_MainTex", barColor);
 	
 	}
 
+ /*
     public Color setBarColor(string colorName)
     {
         switch (colorName)
@@ -49,6 +54,6 @@ public class DwellTimeBar : MonoBehaviour {
         }
         
         return barColor;
-    }
+    }*/
     
 }

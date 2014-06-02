@@ -30,7 +30,7 @@ public class striptShowGazeData : MonoBehaviour {
             Vector3 posGaze = (gazeModel.posGazeLeft + gazeModel.posGazeRight) * 0.5f;
             GUI.DrawTexture(new Rect(posGaze.x-5, posGaze.y-25, gazeCursor.width, gazeCursor.height), gazeCursor);
             //GUI.DrawTexture(new Rect(posGaze.x - 5, posGaze.y - 25, dwellVisual.width/7, dwellVisual.height/7), dwellVisual)
-            dwellCursor.transform.position = camera.ScreenToWorldPoint(new Vector3(posGaze.x, posGaze.y , +0.5F));
+            dwellCursor.transform.position = camera.ScreenToWorldPoint(new Vector3(posGaze.x, -posGaze.y+870 , +0.5F));
             
         }
     }
