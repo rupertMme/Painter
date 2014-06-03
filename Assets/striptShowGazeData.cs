@@ -12,7 +12,6 @@ public class striptShowGazeData : MonoBehaviour {
     public  Texture2D gazeCursormagenta;
     public  Texture2D gazeCursorred;
     public  Texture2D gazeCursoryellow;
-    public Texture2D dwellVisual;
     public GameObject dwellCursor;
 
     void OnGUI()
@@ -30,7 +29,8 @@ public class striptShowGazeData : MonoBehaviour {
             Vector3 posGaze = (gazeModel.posGazeLeft + gazeModel.posGazeRight) * 0.5f;
             GUI.DrawTexture(new Rect(posGaze.x-5, posGaze.y-25, gazeCursor.width, gazeCursor.height), gazeCursor);
             //GUI.DrawTexture(new Rect(posGaze.x - 5, posGaze.y - 25, dwellVisual.width/7, dwellVisual.height/7), dwellVisual)
-            dwellCursor.transform.position = camera.ScreenToWorldPoint(new Vector3(posGaze.x, -posGaze.y+870 , +0.5F));
+            //dwellCursor.transform.position = camera.ScreenToWorldPoint(new Vector3(posGaze.x+18, -posGaze.y+870 , +0.5F));
+            dwellCursor.transform.position = camera.ScreenToWorldPoint(new Vector3(posGaze.x +(dwellCursor.renderer.bounds.size.x/2)+10, -posGaze.y + Screen.height+10, +0.5F));
             
         }
     }

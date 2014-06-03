@@ -61,7 +61,10 @@
      <Compile Include="Assets\Scripts\GameStateManager.cs" />
      <Compile Include="Assets\Scripts\MainMenu.cs" />
      <Compile Include="Assets\Scripts\RotateObjectWhileFocused.cs" />
+     <Compile Include="Assets\Scripts\ScreenShotAndBack.cs" />
+     <Compile Include="Assets\Scripts\Screenshot.cs" />
      <Compile Include="Assets\Scripts\ShowGazeData.cs" />
+     <Compile Include="Assets\Scripts\TakeScreenshot.cs" />
      <Compile Include="Assets\Scripts\View3D_WithGaze.cs" />
      <Compile Include="Assets\Scripts\gazeButton_RotateObject.cs" />
      <Compile Include="Assets\Uber.cs" />

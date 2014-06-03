@@ -31,9 +31,7 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
     //Rotate the Element if the Gaze stays on the Collider
     public override void OnGazeStay(RaycastHit2D hit)
     {
-        Debug.Log("ON GAZE Stay:" + name);
         GameObject colorPicker = GameObject.FindGameObjectWithTag("MainCamera");
-        Debug.Log("mainCamera" + colorPicker +" gameObject.name: "+ gameObject.renderer.name);
         if (gameObject.tag == "ColorPicker")
         {
             Debug.Log("colorNachTAG"+ gameObject.renderer.name);
@@ -47,9 +45,9 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
 
             Debug.Log("dwelltime" + dwellTime);
             dwellTime = dwellTime + Time.deltaTime;
+            GameObject.FindGameObjectWithTag("Dwellcursor").GetComponent<DwellTimeBar>().setDwelltime(dwellTime);
             if (dwellTime >= dwellTimeMax)
             {
-                Debug.Log("dwelltime 10000");
 
                 textureColor = colorPicker.GetComponent<GUIColorPicker>().GetColor();
 
@@ -61,10 +59,6 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
 
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Destroy(gameObject);
-        }
     }
 
 
@@ -73,6 +67,7 @@ public class RotateObjectWhileFocused : MonoBehaviourWithGazeComponent{
     {
         Debug.Log("ongazeExit");
         dwellTime = 0;
+        GameObject.FindGameObjectWithTag("Dwellcursor").GetComponent<DwellTimeBar>().setDwelltime(dwellTime);
         transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 }

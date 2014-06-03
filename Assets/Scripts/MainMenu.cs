@@ -14,10 +14,15 @@ public class MainMenu : MonoBehaviour {
 
     void OnGUI()
     {
-        if (GUI.Button(new Rect(Screen.width * 0.45f, Screen.height * .26f, Screen.width * 0.15f, Screen.height * 0.1f), "Start Calibration"))
+        if (GUI.Button(new Rect(Screen.width * 0.45f, Screen.height * .12f, Screen.width * 0.15f, Screen.height * 0.1f), "Start Calibration"))
             GazeControlComponent.Instance.StartCalibration();
 
         GUI.DrawTexture(new Rect(0, 0, Screen.width * 0.25f, Screen.height*0.25f), eyePaintlogo);
+
+        if (GUI.Button(new Rect(Screen.width * .45f, Screen.height * .26f, Screen.width * 0.15f, Screen.height * .1f), "football"))
+        {
+            GameStateManager.Instance.startState("football");
+        }
 
         if (GUI.Button(new Rect(Screen.width * .45f, Screen.height * .40f, Screen.width * 0.15f, Screen.height * .1f), "Zwerg"))
         {

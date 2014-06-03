@@ -3,6 +3,8 @@ using System.Collections;
 
 public class DwellTimeBar : MonoBehaviour {
     private Color barColor;
+    private float dwellTime;
+
 	// Use this for initialization
     void Start()
     {
@@ -13,13 +15,18 @@ public class DwellTimeBar : MonoBehaviour {
 	void Update () {
         GameObject Camera= GameObject.FindGameObjectWithTag("MainCamera");
         barColor = Camera.GetComponent<GUIColorPicker>().GetColor();
-        renderer.material.SetFloat("_Cutoff", Mathf.InverseLerp(0, Screen.width, Input.mousePosition.x));
+        renderer.material.SetFloat("_Cutoff", (Mathf.InverseLerp(1,0, dwellTime))+0.0001f);
+        //renderer.material.SetFloat("_Cutoff", Mathf.InverseLerp(0, Screen.width, Input.mousePosition.x));
         renderer.material.SetColor("_Color", barColor);
        // renderer.material.color = barColor;
         //renderer.material.SetColor("_MainTex", barColor);
 	
 	}
-
+    public float setDwelltime(float dwellTimenew)
+    {
+        dwellTime = dwellTimenew;
+        return dwellTime;
+    }
  /*
     public Color setBarColor(string colorName)
     {
