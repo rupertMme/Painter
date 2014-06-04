@@ -21,17 +21,24 @@ public class ScreenShotAndBack : MonoBehaviourWithGazeComponent
             GameObject.FindGameObjectWithTag("Dwellcursor").GetComponent<DwellTimeBar>().setDwelltime(dwellTime);
             if (dwellTime >= dwellTimeMax)
             {
-                
+                if (gameObject.tag == "Back")
+                {
+                    GameStateManager.Instance.startState("MainMenu");
+
+                }
+                else if (gameObject.tag == "Screenshot")
+                {
                     string screenshotFilename;
                     do
                     {
                         screenshotCount++;
                         screenshotFilename = "screenshot" + screenshotCount + ".png";
-                        
+
                     } while (System.IO.File.Exists(screenshotFilename));
 
                     Application.CaptureScreenshot(screenshotFilename);
                     GameStateManager.Instance.startState("MainMenu");
+                }
             }
     }
 

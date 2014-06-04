@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 public class MainMenu : MonoBehaviour {
 
     public Texture eyePaintlogo;
+
    
   
 
@@ -46,12 +47,21 @@ public class MainMenu : MonoBehaviour {
       
     }
 	void Start () {
-      
+       // GazeControlComponent.Instance.StartCalibration();
        
 	}
+    void OnLevelWasLoaded(int level)
+    {
+        if (level == 0)
+        {
+            GazeControlComponent.Instance.StartCalibration();
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+
 }
