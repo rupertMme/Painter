@@ -311,7 +311,7 @@ namespace iViewX
                 }
 
 
-                Debug.Log("GameObjectName: " + oldSelection.gameObject.name);
+                
             }
             else
             {

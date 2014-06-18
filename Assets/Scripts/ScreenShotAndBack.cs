@@ -23,7 +23,7 @@ public class ScreenShotAndBack : MonoBehaviourWithGazeComponent
             {
                 if (gameObject.tag == "Back")
                 {
-                    GameStateManager.Instance.startState("MainMenu");
+                    GameStateManager.Instance.startState("MainMenu2");
 
                 }
                 else if (gameObject.tag == "Screenshot")
@@ -37,7 +37,7 @@ public class ScreenShotAndBack : MonoBehaviourWithGazeComponent
                     } while (System.IO.File.Exists(screenshotFilename));
 
                     Application.CaptureScreenshot(screenshotFilename);
-                    GameStateManager.Instance.startState("MainMenu");
+                    GameStateManager.Instance.startState("MainMenu2");
                 }
             }
     }

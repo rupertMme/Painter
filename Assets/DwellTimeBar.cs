@@ -14,8 +14,9 @@ public class DwellTimeBar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         GameObject Camera= GameObject.FindGameObjectWithTag("MainCamera");
-        if (Camera.GetComponent<GUIColorPicker>().GetColor() == null)
+        if (Application.loadedLevelName=="MainMenu2")
         {
+            
             barColor = Color.black;
         }
         else
