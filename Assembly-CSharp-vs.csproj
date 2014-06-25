@@ -68,6 +68,7 @@
      <Compile Include="Assets\Scripts\View3D_WithGaze.cs" />
      <Compile Include="Assets\Scripts\gazeButton_RotateObject.cs" />
      <Compile Include="Assets\Scripts\mainMenu2.cs" />
+     <Compile Include="Assets\Scripts\malStateManager.cs" />
      <Compile Include="Assets\Scripts\menugazeData.cs" />
      <Compile Include="Assets\Uber.cs" />
      <Compile Include="Assets\UberTest.cs" />
